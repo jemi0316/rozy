@@ -521,16 +521,25 @@ a {
 .carrot-project {
   display: block;
   min-height: 100vh;
-  padding: clamp(110px, 13vh, 165px) 0;
+  padding: clamp(95px, 10vh, 135px) 0;
 }
 
 .carrot-project__inner {
-  width: min(980px, calc(100% - 80px));
+  width: min(1080px, calc(100% - 80px));
   margin: 0 auto;
 }
 
 .carrot-project__heading {
-  margin-bottom: 52px;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin-bottom: 48px;
+}
+
+.carrot-project__icon {
+  width: 76px;
+  flex: 0 0 auto;
+  opacity: 0.7;
 }
 
 .carrot-project__number {
@@ -556,15 +565,46 @@ a {
   letter-spacing: 0.08em;
 }
 
-.carrot-project__poster-wrap {
-  display: flex;
-  justify-content: center;
+/* 왼쪽 설명 + 오른쪽 세로 포스터 */
+.carrot-project__layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(330px, 430px);
+  align-items: start;
+  gap: clamp(70px, 8vw, 125px);
+}
+
+.carrot-project__details {
+  padding-top: 8px;
+  font-family: "Pretendard", "Noto Sans KR", sans-serif;
+}
+
+.carrot-project__label {
+  display: inline-block;
+  margin-bottom: 28px;
+  padding-bottom: 5px;
+  border-bottom: 1px solid rgba(102, 102, 102, 0.65);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 16px;
+}
+
+.carrot-project__description {
+  max-width: 520px;
+  font-size: clamp(16px, 1.35vw, 20px);
+  line-height: 1.65;
+  word-break: keep-all;
+}
+
+.carrot-project__storyboard {
+  margin-top: 28px;
+}
+
+.carrot-project__visual {
   width: 100%;
 }
 
 .carrot-project__poster-button {
   display: block;
-  width: min(440px, 100%);
+  width: 100%;
   background: transparent;
   cursor: pointer;
 }
@@ -585,33 +625,8 @@ a {
 
 .carrot-project__watch-row {
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   margin-top: 14px;
-}
-
-.carrot-project__details {
-  margin-top: 56px;
-  font-family: "Pretendard", "Noto Sans KR", sans-serif;
-}
-
-.carrot-project__label {
-  display: inline-block;
-  margin-bottom: 28px;
-  padding-bottom: 5px;
-  border-bottom: 1px solid rgba(102, 102, 102, 0.65);
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: 16px;
-}
-
-.carrot-project__description {
-  max-width: 700px;
-  font-size: clamp(16px, 1.35vw, 20px);
-  line-height: 1.65;
-  word-break: keep-all;
-}
-
-.carrot-project__storyboard {
-  margin-top: 25px;
 }
 
 @media (max-width: 820px) {
@@ -623,8 +638,21 @@ a {
     margin-bottom: 38px;
   }
 
-  .carrot-project__poster-button {
-    width: min(390px, 100%);
+  .carrot-project__icon {
+    width: 58px;
+  }
+
+  .carrot-project__layout {
+    grid-template-columns: 1fr;
+    gap: 42px;
+  }
+
+  .carrot-project__details {
+    padding-top: 0;
+  }
+
+  .carrot-project__visual {
+    width: min(430px, 100%);
   }
 }
 
@@ -638,19 +666,20 @@ a {
   }
 
   .carrot-project__heading {
+    gap: 12px;
     margin-bottom: 28px;
   }
 
-  .carrot-project__poster-button {
-    width: min(320px, 100%);
+  .carrot-project__icon {
+    width: 46px;
+  }
+
+  .carrot-project__layout {
+    gap: 34px;
   }
 
   .carrot-project__watch-row {
     margin-top: 8px;
-  }
-
-  .carrot-project__details {
-    margin-top: 42px;
   }
 }
 
@@ -710,6 +739,8 @@ a {
 .beauty-project__poster-button {
   display: block;
   width: 100%;
+  max-width: 660px;
+  margin: 0 auto;
   overflow: hidden;
   background: transparent;
   cursor: pointer;
@@ -844,6 +875,8 @@ a {
 .world-project__poster-button {
   display: block;
   width: 100%;
+  max-width: 660px;
+  margin: 0 auto;
   overflow: hidden;
   background: transparent;
   cursor: pointer;
@@ -969,7 +1002,11 @@ a {
 /* 폴더와 포스터가 들어가는 큰 가로 영역 */
 .artwork-project__visual {
   position: relative;
-  width: 100%;
+
+  width: min(760px, 100%);
+  margin: -60px auto 0;
+
+  cursor: ns-resize;
 }
 
 /* 뒤에 깔리는 폴더 이미지 */
@@ -1047,7 +1084,7 @@ a {
   }
 
   .artwork-project__details {
-    margin-top: 42px;
+    margin-top: 32px;
   }
 
   .artwork-project__poster {
@@ -1771,8 +1808,37 @@ a {
   }
 }
 
+.carrot-project,
+.beauty-project,
+.world-project,
+.artwork-project {
+  padding: clamp(55px, 6vh, 85px) 0 90px;
+}
 
 
+/* 포스터 공통 호버 */
+.carrot-project__poster-button,
+.beauty-project__poster-button,
+.world-project__poster-button {
+  overflow: visible;
+}
+
+.carrot-project__poster,
+.beauty-project__poster,
+.world-project__poster {
+  transition:
+    transform 0.4s ease,
+    filter 0.4s ease;
+}
+
+.carrot-project__poster-button:hover .carrot-project__poster,
+.beauty-project__poster-button:hover .beauty-project__poster,
+.world-project__poster-button:hover .world-project__poster {
+  transform: translateY(-3px) scale(1.008);
+  filter:
+    brightness(1.015)
+    drop-shadow(0 10px 18px rgba(0, 0, 0, 0.08));
+}
 
 </style>
 </head>
@@ -1943,75 +2009,78 @@ a {
 
     <!-- PROJECT 01 -->
     <article class="carrot-project" id="project-carrot">
-        <div class="carrot-project__inner">
-      
-            <div class="beauty-project__heading">
+      <div class="carrot-project__inner">
 
-                <img
-                  class="beauty-project__flower"
-                  src="당근숫자옆.png"
-                  alt="">
-              
-                <div>
-                  <p class="carrot-project__number">01</p>
-              
-                  <h2 class="carrot-project__title">
-                    Service Feature Campaign
-                  </h2>
-              
-                  <p class="carrot-project__category">
-                    Motion Graphics · Concept Advertisement
-                  </p>
-                </div>
+        <div class="carrot-project__heading">
+          <img
+            class="carrot-project__icon"
+            src="당근숫자옆.png"
+            alt="">
 
+          <div>
+            <p class="carrot-project__number">01</p>
+
+            <h2 class="carrot-project__title">
+              Service Feature Campaign
+            </h2>
+
+            <p class="carrot-project__category">
+              Motion Graphics · Concept Advertisement
+            </p>
+          </div>
+        </div>
+
+        <div class="carrot-project__layout">
+
+          <!-- 왼쪽: 프로젝트 설명 -->
+          <div class="carrot-project__details">
+            <p class="carrot-project__label">Overview</p>
+
+            <p class="carrot-project__description">
+              당근 앱이 중고 거래뿐 아니라 이웃과 관심사를 나누는<br>
+              ‘모임’ 서비스를 제공한다는 점에 주목했습니다.<br><br>
+
+              친근한 캐릭터와 모션그래픽을 활용해 서비스의 특징을<br>
+              쉽고 따뜻하게 전달한 홍보 콘셉트 프로젝트입니다.
+            </p>
+
+            <div class="carrot-project__storyboard">
+              <button
+                class="text-button"
+                type="button"
+                data-process="Creative Process.jpg">
+                → Creative Process
+              </button>
             </div>
-      
-          <div class="carrot-project__poster-wrap">
+          </div>
+
+          <!-- 오른쪽: 포스터 + 영상 버튼 -->
+          <div class="carrot-project__visual">
             <button
               class="carrot-project__poster-button"
               type="button"
               data-video="당근영상.mp4"
               aria-label="당근 모임 서비스 홍보 영상 보기">
-      
+
               <img
                 class="carrot-project__poster"
                 src="당근포스터.png"
                 alt="당근 모임 서비스 홍보 포스터">
             </button>
+
+            <div class="carrot-project__watch-row">
+              <button
+                class="text-button"
+                type="button"
+                data-video="당근영상.mp4">
+                ▶ Watch Video
+              </button>
+            </div>
           </div>
-      
-          <div class="carrot-project__watch-row">
-            <button
-              class="text-button"
-              type="button"
-              data-video="당근영상.mp4">
-              ▶ Watch Video
-            </button>
-          </div>
-      
-          <div class="carrot-project__details">
-            <p class="carrot-project__label">Overview</p>
-      
-            <p class="carrot-project__description">
-              당근 앱이 중고 거래뿐 아니라 이웃과 관심사를 나누는<br>
-              ‘모임’ 서비스를 제공한다는 점에 주목했습니다.<br><br>
-      
-              친근한 캐릭터와 모션그래픽을 활용해 서비스의 특징을<br>
-              쉽고 따뜻하게 전달한 홍보 콘셉트 프로젝트입니다.
-            </p>
-      
-            <div class="carrot-project__storyboard">
-                <button
-                  class="text-button"
-                  type="button"
-                  data-process="Creative Process.jpg">
-                  → Creative Process
-                </button>
-              </div>
-          </div>
-      
+
         </div>
-      </article>
+      </div>
+    </article>
 
   </div>
 
